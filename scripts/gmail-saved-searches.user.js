@@ -23,6 +23,8 @@ function getDateString(date) {
 }
 
 function getCookie(name) {
+  name = getNamespacedName(name);
+  
   if (GM_getValue(name)) {
     return GM_getValue(name);
   }
@@ -33,7 +35,26 @@ function getCookie(name) {
 }
 
 function setCookie(name, value) {
+  name = getNamespacedName(name);
+
   GM_setValue(name, value);
+}
+
+var email = null;
+
+function getNamespacedName(name) {
+  if (email == null) {
+    var settingsNode = getNode("prf_g");
+    var emailNode = settingsNode;
+    
+    do {
+      emailNode = emailNode.previousSibling;
+    } while (!emailNode.innerHTML || emailNode.innerHTML.indexOf("@") == -1);
+    
+    email = encodeURIComponent(emailNode.innerHTML);
+  }
+  
+  return email + "-" + name;
 }
 
 // Shorthand
@@ -73,9 +94,11 @@ const UP_TRIANGLE_IMAGE = "data:image/gif;base64,R0lGODlhCwALAKEAAP///wAAAA4" +
     "ODv///yH5BAEAAAMALAAAAAALAAsAAAITnI+pGmsBF5xp2mPzmCJHB4ZJAQA7";
 
 const DEFAULT_SEARCHES = {
+  "to:me {in:inbox is:unread}": "TODO",
   "has:attachment": "Attachments",
-  "after:today": "Today",
-  "after:oneweekago": "Last Week"
+  "after:oneweekago": "Last Week",
+  "label:^g is:unread": "Muted but unread",
+  "++ {is:unread in:inbox is:starred}", "Add Focus"
 };
 
 const SEARCHES_COOKIE = "PersistentSearches";
