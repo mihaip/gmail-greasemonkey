@@ -1,3 +1,5 @@
+// Copyright 2006 Mihai Parparita. All Rights Reserved.
+
 // ==UserScript==
 // @name          Gmail Label Colors
 // @namespace     http://persistent.info/greasemonkey

@@ -1,3 +1,5 @@
+// Copyright 2006 Mihai Parparita. All Rights Reserved.
+
 // ==UserScript==
 // @name          Gmail Conversation Preview
 // @namespace     http://persistent.info/greasemonkey
