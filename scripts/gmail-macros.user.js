@@ -12,6 +12,7 @@
 
 const LABEL_PREFIX = "sc_";
 const SELECT_PREFIX = "sl_";
+const SAVED_SEARCH_PREFIX = "savedsearch_";
 
 // Maps human readable names to DOM node IDs
 const SPECIAL_LABELS = {
@@ -321,6 +322,17 @@ function beginLabelAction() {
     }
   }
   
+  var searchesDiv = getNode("nb_9");
+  if (searchesDiv != null) {
+    var divs = searchesDiv.getElementsByTagName("div");
+    for (var i=0; i < divs.length; i++) {
+      if (divs[i].className.indexOf("cs") != -1 &&
+          divs[i].id.indexOf(SAVED_SEARCH_PREFIX) == 0) {
+        labels.push(divs[i].id.substring(SAVED_SEARCH_PREFIX.length));
+      }
+    }
+  }
+  
   for (var specialLabel in SPECIAL_LABELS) {
     labels.push(specialLabel);
   }
@@ -411,11 +423,11 @@ function updateLabelAction(event) {
     // Tell the user what we picked
     banner.update(selectedLabels[0]);
 
-    // We don't invoke the action straight away, if the user wants to keep 
-    // typing and/or admire the banner
+    // Invoke the action straight away, but keep the banner up so the user can
+    // see what was picked, and so that extra typing is caught.
+    activeLabelAction(selectedLabels[0]);
     dispatchedActionTimeout = window.setTimeout(
       function () {
-        activeLabelAction(selectedLabels[0]);
         endLabelAction();
       }, 400);
   }
@@ -438,7 +450,8 @@ function getLabelNode(labelName) {
   if (labelName in SPECIAL_LABELS) {
     return getNode(SPECIAL_LABELS[labelName]);
   } else {
-    return getNode(LABEL_PREFIX + labelName);
+    return getNode(LABEL_PREFIX + labelName) ||
+           getNode(SAVED_SEARCH_PREFIX + labelName);
   }
 }
 
