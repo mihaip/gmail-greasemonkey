@@ -117,7 +117,7 @@ function getEscapeClosure(oldEscapeFunction) {
 
 
 function getLabelColorInfo(rawLabelName) {
-  if (rawLabelName.indexOf(" #")) {
+  if (rawLabelName.indexOf(" #") != -1) {
     var split = rawLabelName.split(" #");
     return {name: split[0], color: split[1]};
   } else {
