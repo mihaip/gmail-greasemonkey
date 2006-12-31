@@ -232,6 +232,7 @@ var activeSelectAction = null;
 var labels = new Array();
 var selectedLabels = new Array();
 var labelInput = null;
+var labelsBoxWasClosed = false;
 
 if (isLoaded()) { 
   banner = new Banner();
@@ -312,6 +313,13 @@ function keyHandler(event) {
 }
 
 function beginLabelAction() {
+  // Make sure the labels box is open
+  var labelsHeaderNode = getNode("nt_0");
+  if (labelsHeaderNode.nextSibling == null) {
+    labelsBoxWasClosed = true;
+    simulateClick(labelsHeaderNode, "click");
+  }
+  
   var divs = getNode("nb_0").getElementsByTagName("div");
   labels = new Array();
 
@@ -387,6 +395,11 @@ function endAction() {
 }
 
 function endLabelAction(){
+  if (labelsBoxWasClosed) {
+    labelsBoxWasClosed = false;
+    simulateClick(getNode("nt_0"), "click");
+  }
+
   endAction();
   activeLabelAction = null;
 }
