@@ -98,7 +98,7 @@ const DEFAULT_SEARCHES = {
   "has:attachment": "Attachments",
   "after:oneweekago": "Last Week",
   "label:^g is:unread": "Muted but unread",
-  "++ {is:unread in:inbox is:starred}", "Add Focus"
+  "++ {is:unread in:inbox is:starred}": "Add Focus"
 };
 
 const SEARCHES_COOKIE = "PersistentSearches";
