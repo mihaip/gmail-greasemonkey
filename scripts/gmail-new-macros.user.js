@@ -42,9 +42,9 @@ const LABEL_ACTIONS = {
     label: "Go to label",
     func: function(labelName) {
       if (labelName in SPECIAL_LABELS) {
-        window.location.hash = "#" + SPECIAL_LABELS[labelName];      
+        top.location.hash = "#" + SPECIAL_LABELS[labelName];      
       } else {
-        window.location.hash = "#label/" + encodeURIComponent(labelName);
+        top.location.hash = "#label/" + encodeURIComponent(labelName);
       }
     }
   },
