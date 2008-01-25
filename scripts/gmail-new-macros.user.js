@@ -91,7 +91,7 @@ const ACTIONS = {
     // Can only focus when in threadlist views
     if (gmail.getActiveViewType() != 'tl') return;
     
-    var loc = window.location.hash;
+    var loc = top.location.hash;
     if (loc.length <= 1) return;
     loc = loc.substring(1);
     
@@ -103,7 +103,7 @@ const ACTIONS = {
     
     search += " {in:inbox is:starred is:unread} -is:muted";
     
-    window.location.hash = "#search/" + search;
+    top.location.hash = "#search/" + search;
   }
 };
 
