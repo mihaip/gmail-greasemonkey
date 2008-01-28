@@ -65,17 +65,6 @@ const LABEL_ACTIONS = {
 };
 
 const ACTIONS = {
-  // e: always archive
-  69: function() {
-    var archiveButton = getFirstVisibleNode(
-        evalXPath(".//button[@act='" + ARCHIVE_ACTION + "']", getDoc().body));
-    
-    if (archiveButton) {
-      simulateClick(archiveButton, "click");
-    } else {
-      clickMoreActionsMenuItem("Archive", ARCHIVE_ACTION);
-    }
-  },
   // d: archive and mark as read, i.e. discard
   68: function() {
     clickMoreActionsMenuItem("Mark as read", MARK_AS_READ_ACTION);
