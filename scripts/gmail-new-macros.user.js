@@ -71,8 +71,14 @@ const ACTIONS = {
     
     // Wait for the mark as read action to complete
     window.setTimeout(function() {
-      // Just re-use the always archive action
-      ACTIONS[69]();
+      var archiveButton = getFirstVisibleNode(
+          evalXPath(".//button[@act='" + ARCHIVE_ACTION + "']", getDoc().body));
+    
+      if (archiveButton) {
+        simulateClick(archiveButton, "click");
+      } else {
+        clickMoreActionsMenuItem("Archive", ARCHIVE_ACTION);
+      }
     }, 500);
   },
   // f: focus (only show unread and inbox messages)
